@@ -1,0 +1,7 @@
+*.pyc
+*.caffemodel
+.idea
+*.so
+results
+*.xml
+
