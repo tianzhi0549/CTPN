@@ -26,7 +26,7 @@ Python2.7, cython and all what Caffe depends on.
     * Open Makefile.config and set `WITH_PYTHON_LAYER := 1`. If you want to use CUDNN, please also set `CUDNN := 1`. Note: To use CUDNN, you need to download CUDNN from NVIDIA's official website, and install it in advance. The CUDNN version we use is 3.0.
     * Run `make -j && make pycaffe`.
 
-3. After Caffe is set up, you need to download a trained model (about 78M) from [Google Drive](https://drive.google.com/open?id=0B7c5Ix-XO7hqQWtKQ0lxTko4ZGs), and then populate it into directory `models`. The model's name should be ` ctpn_trained_model.caffemodel`.
+3. After Caffe is set up, you need to download a trained model (about 78M) from [Google Drive](https://drive.google.com/open?id=0B7c5Ix-XO7hqQWtKQ0lxTko4ZGs) or [Our website](http://textdet.com/downloads/ctpn_trained_model.caffemodel), and then populate it into directory `models`. The model's name should be ` ctpn_trained_model.caffemodel`.
 
 4. Now, be sure you are in the root directory of the codes. Run `make` to compile some cython files.
 
