@@ -13,8 +13,6 @@
 #include "caffe/test/test_gradient_check_util.hpp"
 
 namespace caffe {
-
-  typedef ::testing::Types<GPUDevice<float>, GPUDevice<double> > TestDtypesGPU;
   template <typename TypeParam>
   class ReverseLayerTest : public MultiDeviceTest<TypeParam> {
     typedef typename TypeParam::Dtype Dtype;
@@ -36,7 +34,7 @@ namespace caffe {
     vector<Blob<Dtype>*> blob_top_vec_;
   };
 
-  TYPED_TEST_CASE(ReverseLayerTest, TestDtypesGPU);
+  TYPED_TEST_CASE(ReverseLayerTest, TestDtypesAndDevices);
 
   TYPED_TEST(ReverseLayerTest, TestGradient) {
     typedef typename TypeParam::Dtype Dtype;

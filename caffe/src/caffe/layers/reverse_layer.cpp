@@ -1,7 +1,15 @@
 #include "caffe/common_layers.hpp"
 
 namespace caffe {
-
+template <typename Dtype>
+void reverse_cpu(const int count, const Dtype* from_data, Dtype* to_data, 
+	const int* counts, const int axis_count, const int axis) {
+	for(int index=0; index<count; index++) {
+		int ind=(index/counts[axis])%axis_count;
+		int to_index=counts[axis]*(axis_count-2*ind-1)+index;
+		*(to_data+to_index)=*(from_data+index);
+	}
+}
 template <typename Dtype>
 void ReverseLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
         const vector<Blob<Dtype>*>& top) {
@@ -33,13 +41,20 @@ void ReverseLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bottom,
 template <typename Dtype>
 void ReverseLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom, 
 		const vector<Blob<Dtype>*>& top) {
-	NOT_IMPLEMENTED;
+	reverse_cpu<Dtype>(bottom[0]->count(), bottom[0]->cpu_data(), 
+		top[0]->mutable_cpu_data(), bottom_counts_.cpu_data(), 
+		bottom[0]->shape(axis_), axis_);
 }
 
 template <typename Dtype>
 void ReverseLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
     	const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
-	NOT_IMPLEMENTED;
+	if (!propagate_down[0]) {
+		return;
+	}
+	reverse_cpu<Dtype>(bottom[0]->count(), top[0]->cpu_diff(), 
+		bottom[0]->mutable_cpu_diff(), bottom_counts_.cpu_data(), 
+		bottom[0]->shape(axis_), axis_);
 }
 
 INSTANTIATE_CLASS(ReverseLayer);
