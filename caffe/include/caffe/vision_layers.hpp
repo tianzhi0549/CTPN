@@ -300,66 +300,6 @@ class Im2colLayer : public Layer<Dtype> {
   int pad_h_, pad_w_;
 };
 
-template <typename Dtype>
-class SparseIm2colLayer : public Layer<Dtype> {
- public:
-  explicit SparseIm2colLayer(const LayerParameter& param)
-      : Layer<Dtype>(param) {}
-  virtual void LayerSetUp(const vector<Blob<Dtype>*>& bottom,
-      const vector<Blob<Dtype>*>& top);
-  virtual void Reshape(const vector<Blob<Dtype>*>& bottom,
-      const vector<Blob<Dtype>*>& top);
-
-  virtual inline const char* type() const { return "SparseIm2col"; }
-  virtual inline int ExactNumBottomBlobs() const { return 1; }
-  virtual inline int ExactNumTopBlobs() const { return 1; }
-
- protected:
-  virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom,
-      const vector<Blob<Dtype>*>& top);
-  // virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
-  //    const vector<Blob<Dtype>*>& top);
-  virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-      const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-  // virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-  //    const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-  int kernel_h_, kernel_w_;
-  int stride_h_, stride_w_;
-  int channels_;
-  int height_, width_;
-  int pad_h_, pad_w_;
-};
-
-template <typename Dtype>
-class MoreSparseIm2colLayer : public Layer<Dtype> {
- public:
-  explicit MoreSparseIm2colLayer(const LayerParameter& param)
-      : Layer<Dtype>(param) {}
-  virtual void LayerSetUp(const vector<Blob<Dtype>*>& bottom,
-      const vector<Blob<Dtype>*>& top);
-  virtual void Reshape(const vector<Blob<Dtype>*>& bottom,
-      const vector<Blob<Dtype>*>& top);
-
-  virtual inline const char* type() const { return "MoreSparseIm2col"; }
-  virtual inline int ExactNumBottomBlobs() const { return 1; }
-  virtual inline int ExactNumTopBlobs() const { return 1; }
-
- protected:
-  virtual void Forward_cpu(const vector<Blob<Dtype>*>& bottom,
-      const vector<Blob<Dtype>*>& top);
-  // virtual void Forward_gpu(const vector<Blob<Dtype>*>& bottom,
-  //    const vector<Blob<Dtype>*>& top);
-  virtual void Backward_cpu(const vector<Blob<Dtype>*>& top,
-      const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-  // virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
-  //    const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
-  int kernel_h_, kernel_w_;
-  int stride_h_, stride_w_;
-  int channels_;
-  int height_, width_;
-  int pad_h_, pad_w_;
-};
-
 // Forward declare PoolingLayer and SplitLayer for use in LRNLayer.
 template <typename Dtype> class PoolingLayer;
 template <typename Dtype> class SplitLayer;

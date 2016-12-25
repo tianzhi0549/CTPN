@@ -105,6 +105,10 @@ void TransposeLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
         bottom[0]->shape().size());
 }
 
+#ifdef CPU_ONLY
+STUB_GPU(TransposeLayer);
+#endif
+
 INSTANTIATE_CLASS(TransposeLayer);
 REGISTER_LAYER_CLASS(Transpose);
 

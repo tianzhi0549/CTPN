@@ -32,10 +32,6 @@ def draw_boxes(im, bboxes, is_display=True, color=None, caption="Image", wait=Tr
     return im
 
 
-def box_h_w(box):
-    return np.max(box[:-1:2])-np.min(box[:-1:2]), np.max(box[1::2])-np.min(box[1::2])
-
-
 def threshold(coords, min_, max_):
     return np.maximum(np.minimum(coords, max_), min_)
 

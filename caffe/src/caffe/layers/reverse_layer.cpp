@@ -57,6 +57,10 @@ void ReverseLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
 		bottom[0]->shape(axis_), axis_);
 }
 
+#ifdef CPU_ONLY
+STUB_GPU(ReverseLayer);
+#endif
+
 INSTANTIATE_CLASS(ReverseLayer);
 REGISTER_LAYER_CLASS(Reverse);
 
