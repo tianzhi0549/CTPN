@@ -39,6 +39,26 @@ __global__ void im2col_gpu_kernel(const int n, const Dtype* data_im,
   }
 }
 
+template <typename Dtype>
+void im2col_gpu(const Dtype* data_im, const int channels,
+    const int height, const int width, const int kernel_h, const int kernel_w,
+    const int pad_h, const int pad_w,
+    const int stride_h, const int stride_w,
+    Dtype* data_col) {
+  // We are going to launch channels * height_col * width_col kernels, each
+  // kernel responsible for copying a single-channel grid.
+  int height_col = (height + 2 * pad_h - kernel_h) / stride_h + 1;
+  int width_col = (width + 2 * pad_w - kernel_w) / stride_w + 1;
+  int num_kernels = channels * height_col * width_col;
+  // NOLINT_NEXT_LINE(whitespace/operators)
+  im2col_gpu_kernel<Dtype><<<CAFFE_GET_BLOCKS(num_kernels),
+                             CAFFE_CUDA_NUM_THREADS>>>(
+      num_kernels, data_im, height, width, kernel_h, kernel_w, pad_h,
+      pad_w, stride_h, stride_w, height_col,
+      width_col, data_col);
+  CUDA_POST_KERNEL_CHECK;
+}
+
 // Explicit instantiation
 template void im2col_gpu<float>(const float* data_im, const int channels,
     const int height, const int width, const int kernel_h, const int kernel_w,
