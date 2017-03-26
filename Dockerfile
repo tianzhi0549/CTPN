@@ -1,5 +1,5 @@
 FROM nvidia/cuda:7.0-runtime-ubuntu14.04
-MAINTAINER Varun Suresh <fab.varun@waldophotos.com>
+MAINTAINER Varun Suresh <fab.varun@gmail.com>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
