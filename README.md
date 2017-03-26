@@ -35,5 +35,11 @@ Python2.7, cython and all what Caffe depends on.
 
 5. Run `python tools/demo.py` for a demo. Or `python tools/demo.py --no-gpu` to run it under CPU mode.
 
+# How to use other Caffe
+If you may want to use other Caffe instead of the one we ship for some reasons, you need to migrate the following layers into the Caffe.
+* Reverse
+* Transpose
+* Lstm
+
 # License
 The codes are released under the MIT License.
