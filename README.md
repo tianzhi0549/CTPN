@@ -7,7 +7,7 @@ The codes are used for implementing CTPN for scene text detection, described in:
 Online demo is available at: [textdet.com](http://textdet.com)
 
 These demo codes (with our trained model) are for text-line detection (without 
-side-refiement part).
+side-refinement part).
 
 # Required hardware
 You need a GPU. If you use CUDNN, about 1.5GB free memory is required. If you don't use CUDNN, you will need about 5GB free memory, and the testing time will slightly increase. Therefore, we strongly recommend to use CUDNN.
